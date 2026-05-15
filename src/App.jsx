@@ -3,11 +3,11 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import {assignments} from "./data/landingpageData"
 import Home from "./components/commonComponents/landingpage/Home.jsx"
-import HomePage1 from './components/assignment1/Homepage1.jsx';
-import HomePage2 from './components/assignment2/Homepage2.jsx';
-import HomePage3 from './components/assignment3/Homepage3.jsx';
-import HomePage4 from './components/assignment4/Homepage4.jsx';
-import HomePage5 from './components/assignment5/Homepage5.jsx';
+import HomePage1 from './components/assignment1/HomePage1.jsx';
+import HomePage2 from './components/assignment2/HomePage2.jsx';
+import HomePage3 from './components/assignment3/HomePage3.jsx';
+import HomePage4 from './components/assignment4/HomePage4.jsx';
+import HomePage5 from './components/assignment5/HomePage5.jsx';
 
 
 
