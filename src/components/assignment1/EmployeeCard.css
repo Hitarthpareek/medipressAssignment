@@ -1,0 +1,209 @@
+/* EmployeeCard.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f1f5f9;
+  font-family: "Inter", sans-serif;
+}
+
+/* Container */
+
+.employee-container {
+  padding: 60px 7%;
+}
+
+/* Heading */
+
+.page-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 55px;
+  position: relative;
+}
+
+.page-title::after {
+  content: "";
+  width: 120px;
+  height: 5px;
+  background: linear-gradient(to right, #2563eb, #7c3aed);
+  display: block;
+  margin: 14px auto 0;
+  border-radius: 20px;
+}
+
+/* Grid */
+
+.employee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 35px;
+}
+
+/* Card */
+
+.employee-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+
+  border-radius: 24px;
+  padding: 28px;
+
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  transition: all 0.35s ease;
+
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.08),
+    0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+/* Glow */
+
+.employee-card::before {
+  content: "";
+  position: absolute;
+  top: -90px;
+  right: -90px;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.18),
+    rgba(124, 58, 237, 0.16)
+  );
+
+  transition: 0.4s ease;
+}
+
+.employee-card:hover::before {
+  transform: scale(1.2);
+}
+
+.employee-card:hover {
+  transform: translateY(-12px);
+
+  box-shadow:
+    0 20px 45px rgba(15, 23, 42, 0.14),
+    0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* Top */
+
+.employee-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+/* Image */
+
+.employee-image {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 4px solid white;
+
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+
+  transition: 0.3s ease;
+}
+
+.employee-card:hover .employee-image {
+  transform: scale(1.05);
+}
+
+/* Badge */
+
+.status-badge {
+  padding: 9px 15px;
+  border-radius: 999px;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+}
+
+/* Status Colors */
+
+.active {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+}
+
+.leave {
+  background: rgba(245, 158, 11, 0.14);
+  color: #d97706;
+}
+
+.inactive {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+
+/* Content */
+
+.employee-content h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.employee-content p {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .employee-container {
+    padding: 40px 5%;
+  }
+
+  .page-title {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .employee-container {
+    padding: 30px 16px;
+  }
+
+  .page-title {
+    font-size: 1.9rem;
+    margin-bottom: 40px;
+  }
+
+  .employee-card {
+    padding: 24px;
+  }
+
+  .employee-content h2 {
+    font-size: 1.25rem;
+  }
+
+  .employee-content p {
+    font-size: 0.92rem;
+  }
+}
