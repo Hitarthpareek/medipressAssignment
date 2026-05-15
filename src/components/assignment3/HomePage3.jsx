@@ -15,6 +15,12 @@ export default function HomePage3() {
     fetchUsers();
   }, []);
 
+  useEffect(() => {
+  if (users.length > 0) {
+    window.scrollTo(0, 0);
+  }
+}, [users]);
+
   const fetchUsers = async () => {
     try {
       setLoading(true);
