@@ -13,6 +13,7 @@ const {
   createProject,
   getProjects,
   getUserProjects,
+  completeProject
 } = require(
   "../controllers/projectController"
 );

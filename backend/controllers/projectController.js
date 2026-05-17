@@ -114,5 +114,5 @@ module.exports = {
   createProject,
   getProjects,
   getUserProjects,
-  completeProject
+  completeProject,
 };
