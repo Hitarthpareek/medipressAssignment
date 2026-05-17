@@ -1,180 +1,229 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
-import Header from "../commonComponents/Header/Header";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import Navbar from "./components/Navbar";
 
 import LoginForm from "./components/LoginForm";
-import Navbar from "./components/Navbar";
-import DashboardCards from "./components/DashboardCards";
-import EmployeeTable from "./components/EmployeeTable";
-import ProjectTable from "./components/ProjectTable";
-import WorkLogTable from "./components/WorkLogTable";
+
+import Dashboard from "./pages/Dashboard";
+
+import UserDashboard from "./pages/UserDashboard";
+
+import UserProfile from "./pages/UserProfile";
 
 import {
   loginUser,
   registerUser,
-  getEmployees,
+  getProjects,
+  createProject,
 } from "./services/api";
 
 import {
-  saveToken,
-  getToken,
+  saveAuth,
+  getUser,
   logout,
 } from "./utils/auth";
 
 import "./HomePage4.css";
 
 export default function HomePage4() {
-  const [user, setUser] = useState(null);
 
-  const [employees, setEmployees] = useState([]);
+  const [user, setUser] =
+    useState(null);
 
-  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] =
+    useState([]);
 
   useEffect(() => {
-    checkAuth();
-  }, []);
 
-const checkAuth = async () => {
-
-  try {
-
-    const token = getToken();
+    fetchProjects();
 
     const savedUser =
-      localStorage.getItem("user");
+      getUser();
 
-    if (!token || !savedUser) {
-      setLoading(false);
-      return;
+    if (savedUser) {
+
+      setUser(savedUser);
+
     }
 
-    const parsedUser =
-      JSON.parse(savedUser);
+  }, []);
 
-    setUser(parsedUser);
+  const fetchProjects =
+    async () => {
 
-    await fetchEmployees();
+      try {
 
-  } catch (error) {
+        const data =
+          await getProjects();
 
-    console.log(error);
+        setProjects(data);
 
-    logout();
+      } catch (error) {
 
-    localStorage.removeItem("user");
+        console.log(error);
 
-  } finally {
+      }
+    };
 
-    setLoading(false);
+  const handleSignup =
+    async (formData) => {
 
-  }
-};
+      try {
 
-  const fetchEmployees = async () => {
-    try {
-      const data = await getEmployees();
+        await registerUser(
+          formData
+        );
 
-      setEmployees(data);
+        alert(
+          "Signup Successful"
+        );
 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      } catch (error) {
 
-  const handleLogin = async (formData) => {
-    try {
-      const data = await loginUser(formData);
+        console.log(error);
 
-      saveToken(data.token);
+      }
+    };
 
-            localStorage.setItem(
-        "user",
-        JSON.stringify(data.user)
-      );
+  const handleLogin =
+    async (formData) => {
 
-      setUser(data.user);
+      try {
 
-      await fetchEmployees();
+        const data =
+          await loginUser(
+            formData
+          );
 
-    } catch (error) {
-      console.log(error);
-      alert("Invalid Credentials");
-    }
-  };
+        saveAuth(
+          data.token,
+          data.user
+        );
 
-const handleSignup = async (
-  formData
-) => {
+        setUser(data.user);
 
-  try {
+      } catch (error) {
 
-    await registerUser(formData);
+        console.log(error);
 
-    alert(
-      "Signup successful. Please login."
-    );
-
-  } catch (error) {
-
-    console.log(error);
-
-    alert("Signup Failed");
-
-  }
-};
+      }
+    };
 
   const handleLogout = () => {
-    logout();
 
-    localStorage.removeItem("user");
+    logout();
 
     setUser(null);
   };
 
-   if (loading) {
-    return (
-      <div className="loader-screen">
-        <h1>Loading...</h1>
-      </div>
+  const handleAddProject =
+    async (projectData) => {
+
+      try {
+
+        const payload = {
+          ...projectData,
+
+          username:
+            user.name,
+        };
+
+        await createProject(
+          payload
+        );
+
+        fetchProjects();
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+    };
+
+  const userProjects =
+    projects.filter(
+      (project) =>
+        project.username ===
+        user?.name
     );
-  }
 
-  if (!user) {
-    return (
-      <>
-        <Header title="PMIS Login" />
+  return (
+    <div className="homepage4">
 
-        <LoginForm
-          onLogin={handleLogin}
-          onSignup={handleSignup}
+      <Navbar
+        user={user}
+        onLogout={
+          handleLogout
+        }
+      />
+
+      {!user ? (
+
+        <div className="public-layout">
+
+          <div className="dashboard-section">
+
+            <Routes>
+
+              <Route
+                path="/"
+                element={
+                  <Dashboard
+                    projects={
+                      projects
+                    }
+                  />
+                }
+              />
+
+              <Route
+                path="/profile/:id"
+                element={
+                  <UserProfile />
+                }
+              />
+
+            </Routes>
+
+          </div>
+
+          <div className="login-section">
+
+            <LoginForm
+              onLogin={
+                handleLogin
+              }
+              onSignup={
+                handleSignup
+              }
+            />
+
+          </div>
+
+        </div>
+
+      ) : (
+
+        <UserDashboard
+          projects={
+            userProjects
+          }
+          onAddProject={
+            handleAddProject
+          }
         />
-      </>
-    );
-  }
 
-   return (
-    <>
-      <Header title="PMIS Dashboard" />
+      )}
 
-      <div className="pmis-container">
-        <Navbar
-          user={user}
-          onLogout={handleLogout}
-        />
-
-        <DashboardCards
-          employees={employees.length}
-          projects={12}
-          worklogs={42}
-          hours={320}
-        />
-
-        <EmployeeTable employees={employees} />
-
-                <ProjectTable />
-
-        <WorkLogTable />
-      </div>
-    </>
+    </div>
   );
 }

@@ -38,7 +38,7 @@ function App() {
         />
 
         <Route
-          path="/assignment4"
+          path="/assignment4/*"
           element={
             <HomePage4/>
           }

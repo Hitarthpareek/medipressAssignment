@@ -15,24 +15,13 @@ export default function LoginForm({
       password: "",
     });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]:
-        e.target.value,
-    });
-  };
-
   const handleSubmit = (e) => {
 
     e.preventDefault();
 
     if (isLogin) {
 
-      onLogin({
-        email: formData.email,
-        password: formData.password,
-      });
+      onLogin(formData);
 
     } else {
 
@@ -42,75 +31,70 @@ export default function LoginForm({
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-container">
 
-      <div className="auth-card">
+      <form
+        className="auth-card"
+        onSubmit={handleSubmit}
+      >
 
-        <div className="auth-top">
+        <h1>
+          {isLogin
+            ? "Login"
+            : "Create Account"}
+        </h1>
 
-          <h1>
-            {isLogin
-              ? "Welcome Back"
-              : "Create Account"}
-          </h1>
-
-          <p>
-            {isLogin
-              ? "Login to continue"
-              : "Signup to access PMIS"}
-          </p>
-
-        </div>
-
-        <form
-          className="auth-form"
-          onSubmit={handleSubmit}
-        >
-
-          {!isLogin && (
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          )}
-
+        {!isLogin && (
           <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            required
+            type="text"
+            placeholder="Name"
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                name: e.target.value,
+              })
+            }
           />
+        )}
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+        <input
+          type="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              email: e.target.value,
+            })
+          }
+        />
 
-          <button type="submit">
+        <input
+          type="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              password: e.target.value,
+            })
+          }
+        />
 
-            {isLogin
-              ? "Login"
-              : "Create Account"}
-
-          </button>
-
-        </form>
-
-        <div className="auth-toggle">
+        <button type="submit">
 
           {isLogin
-            ? "Don't have an account?"
-            : "Already have an account?"}
+            ? "Login"
+            : "Signup"}
+
+        </button>
+
+        <p>
+
+          {isLogin
+            ? "Don't have account?"
+            : "Already have account?"}
 
           <span
             onClick={() =>
@@ -119,14 +103,14 @@ export default function LoginForm({
           >
 
             {isLogin
-              ? " Sign Up"
+              ? " Signup"
               : " Login"}
 
           </span>
 
-        </div>
+        </p>
 
-      </div>
+      </form>
 
     </div>
   );

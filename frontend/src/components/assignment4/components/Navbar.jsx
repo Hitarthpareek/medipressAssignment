@@ -1,13 +1,29 @@
-export default function Navbar({ user }) {
+export default function Navbar({
+  user,
+  onLogout,
+}) {
+
   return (
     <div className="navbar">
-      <div>
-        <h2>PMIS Dashboard</h2>
+
+      <h2>
+        PMIS Dashboard
+      </h2>
+
+      <div className="nav-right">
+
+        <span>
+          {user?.name}
+        </span>
+
+        <button
+          onClick={onLogout}
+        >
+          Logout
+        </button>
+
       </div>
 
-      <div className="user-box">
-        {user?.name}
-      </div>
     </div>
   );
 }

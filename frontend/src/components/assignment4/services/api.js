@@ -1,5 +1,7 @@
 const BASE_URL = "/api";
 
+/* AUTH */
+
 export const registerUser = async (
   userData
 ) => {
@@ -42,21 +44,44 @@ export const loginUser = async (
   return response.json();
 };
 
-export const getEmployees =
+/* PROJECTS */
+
+export const getProjects =
   async () => {
+
+    const response =
+      await fetch(
+        `${BASE_URL}/projects`
+      );
+
+    return response.json();
+};
+
+export const createProject =
+  async (projectData) => {
 
     const token =
       localStorage.getItem("token");
 
-    const response = await fetch(
-      `${BASE_URL}/employees`,
-      {
-        headers: {
-          Authorization:
-            `Bearer ${token}`,
-        },
-      }
-    );
+    const response =
+      await fetch(
+        `${BASE_URL}/projects`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+
+            Authorization:
+              `Bearer ${token}`,
+          },
+
+          body: JSON.stringify(
+            projectData
+          ),
+        }
+      );
 
     return response.json();
 };

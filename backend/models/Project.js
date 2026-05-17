@@ -1,17 +1,34 @@
 const mongoose = require("mongoose");
 
-const projectSchema = new mongoose.Schema(
-  {
-    title: String,
-    manager: String,
-    status: String,
-  },
-  {
-    timestamps: true,
-  }
-);
+const projectSchema =
+  new mongoose.Schema(
+    {
+      userId: {
+        type:
+          mongoose.Schema.Types.ObjectId,
 
-module.exports = mongoose.model(
-  "Project",
-  projectSchema
-);
+        ref: "User",
+      },
+
+      username: String,
+
+      projectName: String,
+
+      description: String,
+
+      isOngoing: Boolean,
+
+      startDate: Date,
+
+      endDate: Date,
+    },
+    {
+      timestamps: true,
+    }
+  );
+
+module.exports =
+  mongoose.model(
+    "Project",
+    projectSchema
+  );
