@@ -21,6 +21,11 @@ import UserProfile from "./pages/UserProfile";
 import toast from "react-hot-toast";
 
 import {
+  Eye,
+  EyeOff,
+} from "lucide-react";
+
+import {
   loginUser,
   registerUser,
   getProjects,

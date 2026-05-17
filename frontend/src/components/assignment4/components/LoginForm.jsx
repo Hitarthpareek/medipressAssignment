@@ -8,6 +8,9 @@ export default function LoginForm({
   const [isLogin, setIsLogin] =
     useState(true);
 
+    const [showPassword, setShowPassword] =
+  useState(false);
+
   const [formData, setFormData] =
     useState({
       name: "",
@@ -102,14 +105,46 @@ export default function LoginForm({
           required
         />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+ <div className="password-field">
+
+  <input
+    type={
+      showPassword
+        ? "text"
+        : "password"
+    }
+
+    name="password"
+
+    placeholder="Password"
+
+    value={formData.password}
+
+    onChange={handleChange}
+
+    required
+  />
+
+  <button
+    type="button"
+
+    className="show-password-btn"
+
+    onClick={() =>
+      setShowPassword(
+        !showPassword
+      )
+    }
+  >
+
+    {showPassword
+  ? <EyeOff size={18} />
+  : <Eye size={18} />
+}
+
+  </button>
+
+</div>
 
         <button type="submit">
 
