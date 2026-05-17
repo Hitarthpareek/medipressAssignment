@@ -41,6 +41,10 @@ app.use(
   taskRoutes
 );
 
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 /* Frontend */
 
 const frontendPath = path.join(__dirname, "../frontend/dist");
