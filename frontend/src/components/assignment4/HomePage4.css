@@ -754,7 +754,7 @@ body{
 
 .project-card{
   background-color: lightblue;
-
+  margin-bottom: 20px;
   border-radius:28px;
 
   padding:30px;
@@ -762,7 +762,7 @@ body{
   display:flex;
   flex-direction:column;
 
-  gap:22px;
+  gap:15px;
 
   transition:0.3s;
 
@@ -772,7 +772,7 @@ body{
   box-shadow:
   0 12px 28px rgba(15,23,42,0.04);
 
-  min-height:180px;
+  min-height:150px;
 }
 
 .project-card:hover{
@@ -926,10 +926,10 @@ body{
 }
 
 .ongoing{
-  background-color: rgb(204, 255, 204);
+  background-color: rgb(217, 255, 217);
 }
 .completed{
-  background-color: #d1d1ff;
+  background-color: hsl(215, 100%, 86%);
 }
 
 /* RESPONSIVE */
