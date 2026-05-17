@@ -122,10 +122,10 @@ const handleLogin =
           formData
         );
 
-      if (!data.token) {
+      if (!data.success) {
 
         toast.error(
-          "Invalid Credentials"
+          data.message
         );
 
         return;
