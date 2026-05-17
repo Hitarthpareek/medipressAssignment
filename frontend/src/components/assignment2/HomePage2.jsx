@@ -17,6 +17,12 @@ export default function HomePage2() {
     },
   ]);
 
+   useEffect(() => {
+  
+    window.scrollTo(0, 0);
+  
+  }, []);
+
   const [taskInput, setTaskInput] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");

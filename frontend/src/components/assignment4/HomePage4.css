@@ -164,6 +164,9 @@ body{
 .dashboard-table thead{
   background:#eff6ff;
 }
+.dashboard-table thead:hover{
+  background-color: #93b3f9;
+}
 
 .dashboard-table th{
   text-align:left;

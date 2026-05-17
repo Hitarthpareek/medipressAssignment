@@ -82,7 +82,7 @@ export default function LoginForm({
         <h1>
 
           {isLogin
-            ? "Login"
+            ? "Employee Login"
             : "Create Account"}
 
         </h1>
