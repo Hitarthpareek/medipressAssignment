@@ -84,7 +84,7 @@ export default function Dashboard({
 
       <div className="dashboard-top">
 
-        <div>
+        <div style={{paddingBottom:15}}>
 
           <h1>
             PMIS Dashboard
