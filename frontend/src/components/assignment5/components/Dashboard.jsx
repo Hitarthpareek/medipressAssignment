@@ -5,17 +5,13 @@ import TaskCard from "./TaskCard";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchTasks = async () => {
-    setLoading(true);
     const res = await getTasks();
 
     if (res.success) {
       setTasks(res.tasks);
     }
-
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -23,22 +19,24 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="dashboard">
+    <div>
+
+      <div className="top-bar">
+        <h2>My Tasks</h2>
+      </div>
+
       <TaskForm onTaskAdded={fetchTasks} />
 
-      {loading && <p>Loading...</p>}
+      <div className="task-list">
+        {tasks.map((task) => (
+          <TaskCard
+            key={task._id}
+            task={task}
+            onRefresh={fetchTasks}
+          />
+        ))}
+      </div>
 
-      {!loading && (
-        <div className="task-list">
-          {tasks.map((task) => (
-            <TaskCard
-              key={task._id}
-              task={task}
-              onRefresh={fetchTasks}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }
