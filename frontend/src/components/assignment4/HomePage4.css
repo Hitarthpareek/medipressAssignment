@@ -274,18 +274,22 @@ body{
 .password-field{
   position:relative;
 
-  width:100%;
+  width:100%;   
+}
+
+.password-field button{
+    height: 50px;
 }
 
 .show-password-btn{
   position:absolute;
 
   right:10px;
-  top:0;
+  top:0px;
 
 
   width:32px;
-
+  
   border:none;
 
   border-radius:12px;

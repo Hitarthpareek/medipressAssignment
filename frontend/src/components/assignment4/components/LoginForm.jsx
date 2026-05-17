@@ -140,10 +140,9 @@ export default function LoginForm({
       )
     }
   >
-
     {showPassword
-  ? <EyeOff size={18} />
-  : <Eye size={18} />
+  ? <EyeOff size={17} />
+  : <Eye size={17} />
 }
 
   </button>
