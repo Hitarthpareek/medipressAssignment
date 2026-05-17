@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Login from "../components/Login";
-import Dashboard from "../components/Dashboard";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
 import { getUser, logout } from "./utils/auth";
 
 export default function HomePage5() {
