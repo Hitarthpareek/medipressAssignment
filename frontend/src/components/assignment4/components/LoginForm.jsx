@@ -17,7 +17,7 @@ export default function LoginForm({ onLogin }) {
       <form
         className="login-card"
         onSubmit={handleSubmit}
-      >
+              >
         <h1>Welcome Back</h1>
 
         <input
@@ -32,10 +32,10 @@ export default function LoginForm({ onLogin }) {
           }
         />
 
-         <input
+        <input
           type="password"
           placeholder="Password"
-          value={formData.password}
+                   value={formData.password}
           onChange={(e) =>
             setFormData({
               ...formData,

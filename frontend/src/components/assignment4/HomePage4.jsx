@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import Header from "../commonComponents/Header/Header";
+import Header from "../commonComponents/Header";
 
 import LoginForm from "./components/LoginForm";
 import Navbar from "./components/Navbar";
@@ -11,10 +11,15 @@ import WorkLogTable from "./components/WorkLogTable";
 
 import {
   loginUser,
+  registerUser,
   getEmployees,
 } from "./services/api";
 
-import { saveToken } from "./utils/auth";
+import {
+  saveToken,
+  getToken,
+  logout,
+} from "./utils/auth";
 
 import "./HomePage4.css";
 
@@ -23,40 +28,109 @@ export default function HomePage4() {
 
   const [employees, setEmployees] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetchEmployees();
+    checkAuth();
   }, []);
+
+  const checkAuth = async () => {
+    try {
+      const token = getToken();
+
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
+      await fetchEmployees();
+
+      const savedUser = JSON.parse(
+        localStorage.getItem("user")
+      );
+
+      if (savedUser) {
+        setUser(savedUser);
+      }
+
+    } catch (error) {
+      console.log(error);
+      logout();
+
+          } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchEmployees = async () => {
     try {
       const data = await getEmployees();
+
       setEmployees(data);
+
     } catch (error) {
       console.log(error);
     }
   };
 
-   const handleLogin = async (formData) => {
+  const handleLogin = async (formData) => {
     try {
       const data = await loginUser(formData);
 
       saveToken(data.token);
 
+            localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+      );
+
       setUser(data.user);
 
-      fetchEmployees();
+      await fetchEmployees();
 
     } catch (error) {
       console.log(error);
+      alert("Invalid Credentials");
     }
   };
 
-   if (!user) {
+    const handleSignup = async (formData) => {
+    try {
+      await registerUser(formData);
+
+      alert("Account Created Successfully");
+
+    } catch (error) {
+      console.log(error);
+      alert("Signup Failed");
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+
+    localStorage.removeItem("user");
+
+    setUser(null);
+  };
+
+   if (loading) {
+    return (
+      <div className="loader-screen">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
+  if (!user) {
     return (
       <>
         <Header title="PMIS Login" />
 
-        <LoginForm onLogin={handleLogin} />
+        <LoginForm
+          onLogin={handleLogin}
+          onSignup={handleSignup}
+        />
       </>
     );
   }
@@ -66,7 +140,10 @@ export default function HomePage4() {
       <Header title="PMIS Dashboard" />
 
       <div className="pmis-container">
-        <Navbar user={user} />
+        <Navbar
+          user={user}
+          onLogout={handleLogout}
+        />
 
         <DashboardCards
           employees={employees.length}
@@ -75,9 +152,9 @@ export default function HomePage4() {
           hours={320}
         />
 
-       <EmployeeTable employees={employees} />
+        <EmployeeTable employees={employees} />
 
-        <ProjectTable />
+                <ProjectTable />
 
         <WorkLogTable />
       </div>

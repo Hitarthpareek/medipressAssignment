@@ -31,7 +31,7 @@ export const getEmployees = async () => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    });
+  });
 
   return response.json();
 };
