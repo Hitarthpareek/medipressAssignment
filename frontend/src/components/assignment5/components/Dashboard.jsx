@@ -18,10 +18,7 @@ export default function Dashboard() {
 
   useEffect(() => { fetchTasks(); }, []);
 
-  const filtered = filter === "all"
-    ? tasks
-    : tasks.filter(t => t.status === filter);
-
+  const filtered = filter === "all" ? tasks : tasks.filter(t => t.status === filter);
   const counts = {
     all: tasks.length,
     pending: tasks.filter(t => t.status === "pending").length,
@@ -32,8 +29,17 @@ export default function Dashboard() {
     <div className="dashboard">
       <div className="dashboard-header">
         <div>
-          <h2>Your Tasks</h2>
-          <p>{counts.all} total · {counts.pending} pending · {counts.completed} done</p>
+          <h2>My Tasks</h2>
+        </div>
+        <div className="header-stats">
+          <div className="stat-chip pending-chip">
+            <div className="stat-dot" />
+            {counts.pending} pending
+          </div>
+          <div className="stat-chip done-chip">
+            <div className="stat-dot" />
+            {counts.completed} done
+          </div>
         </div>
       </div>
 
@@ -41,20 +47,14 @@ export default function Dashboard() {
 
       <div className="filter-tabs">
         {["all", "pending", "completed"].map(f => (
-          <button
-            key={f}
-            className={`filter-tab ${filter === f ? "active" : ""}`}
-            onClick={() => setFilter(f)}
-          >
+          <button key={f} className={`filter-tab ${filter === f ? "active" : ""}`} onClick={() => setFilter(f)}>
             {f.charAt(0).toUpperCase() + f.slice(1)}
             <span className="tab-count">{counts[f]}</span>
           </button>
         ))}
       </div>
 
-      {loading ? (
-        <Loader />
-      ) : (
+      {loading ? <Loader /> : (
         <div className="task-grid">
           {filtered.length === 0 ? (
             <div className="empty-state">
@@ -62,9 +62,7 @@ export default function Dashboard() {
               <p>{filter === "all" ? "No tasks yet. Create one above." : `No ${filter} tasks.`}</p>
             </div>
           ) : (
-            filtered.map(task => (
-              <TaskCard key={task._id} task={task} refresh={fetchTasks} />
-            ))
+            filtered.map(task => <TaskCard key={task._id} task={task} refresh={fetchTasks} />)
           )}
         </div>
       )}

@@ -7,26 +7,27 @@ import "./HomePage5.css";
 export default function HomePage5() {
   const [user, setUser] = useState(getUser());
 
-  if (!user) {
-    return <Login setUser={setUser} />;
-  }
+  if (!user) return <Login setUser={setUser} />;
 
   return (
     <div className="app">
       <nav className="navbar">
         <div className="logo">
-          <span className="logo-icon">✦</span>
+          <div className="logo-mark">T</div>
           TaskFlow
         </div>
+
+        <div className="nav-center">
+          <button className="nav-link active">Dashboard</button>
+          <button className="nav-link">Calendar</button>
+          <button className="nav-link">Team</button>
+        </div>
+
         <div className="nav-right">
-          <div className="user-pill">
-            <span className="user-avatar">{(user.name || "U")[0].toUpperCase()}</span>
-            <span className="user-name">Hi, {user.name || "User"}</span>
-          </div>
-          <button
-            className="logout-btn"
-            onClick={() => { logout(); setUser(null); }}
-          >
+          <div className="nav-avatar">{(user.name || "U")[0].toUpperCase()}</div>
+          <span className="nav-user-name">{user.name || "User"}</span>
+          <div className="nav-divider" />
+          <button className="btn-signout" onClick={() => { logout(); setUser(null); }}>
             Sign out
           </button>
         </div>
