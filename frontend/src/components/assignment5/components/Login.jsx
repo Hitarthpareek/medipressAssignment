@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loginUser, registerUser } from "../services/api";
 import { saveAuth } from "../utils/auth";
+import Header from "../../commonComponents/Header/Header"
 
 export default function Login({ setUser }) {
   const [mode, setMode] = useState("login");
@@ -28,6 +29,7 @@ export default function Login({ setUser }) {
 
   return (
     <div className="auth-page">
+      <Header/>
       {/* Left panel */}
       <div className="auth-left">
         <div className="auth-left-brand">
