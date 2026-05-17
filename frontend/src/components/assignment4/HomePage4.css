@@ -772,7 +772,7 @@ body{
   box-shadow:
   0 12px 28px rgba(15,23,42,0.04);
 
-  min-height:150px;
+  min-height:250px;
 }
 
 .project-card:hover{
