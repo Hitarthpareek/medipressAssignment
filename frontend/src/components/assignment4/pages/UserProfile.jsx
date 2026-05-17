@@ -104,6 +104,7 @@ export default function UserProfile() {
             <ProjectCard
               key={project._id}
               project={project}
+              enableMarktodo={false}
             />
 
           )

@@ -1,6 +1,7 @@
 export default function ProjectCard({
   project,
   onComplete,
+  enableMarktodo
 }) {
 
   const start =
@@ -22,7 +23,7 @@ export default function ProjectCard({
     );
 
   return (
-    <div className="project-card">
+    <div className={project.isOngoing?"project-card ongoing":"project-card completed"}>
 
       <div className="project-top">
 
@@ -82,7 +83,7 @@ export default function ProjectCard({
 
       </div>
 
-      {project.isOngoing && (
+      {project.isOngoing && enableMarktodo (
 
         <button
           className="complete-btn"

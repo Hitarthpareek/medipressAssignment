@@ -753,7 +753,7 @@ body{
 /* PROJECT CARD */
 
 .project-card{
-  background:#ffffff;
+  background-color: lightblue;
 
   border-radius:28px;
 
@@ -772,7 +772,7 @@ body{
   box-shadow:
   0 12px 28px rgba(15,23,42,0.04);
 
-  min-height:290px;
+  min-height:180px;
 }
 
 .project-card:hover{
@@ -923,6 +923,13 @@ body{
   color:#64748b;
 
   line-height:1.8;
+}
+
+.ongoing{
+  background-color: rgb(204, 255, 204);
+}
+.completed{
+  background-color: #d1d1ff;
 }
 
 /* RESPONSIVE */
