@@ -13,24 +13,26 @@ export default function TaskCard({ task, refresh }) {
 
   return (
     <div className={`task-card ${task.status}`}>
-      <div className="task-top">
-        <h3>{task.title}</h3>
-
+      <div className="card-top">
+        <span className={`status-dot ${task.status}`} />
         <span className={`badge ${task.status}`}>
-          {task.status}
+          {task.status === "completed" ? "✓ Done" : "Pending"}
         </span>
       </div>
 
-      <p className="desc">{task.description}</p>
+      <h3 className="card-title">{task.title}</h3>
 
-      <div className="task-actions">
+      {task.description && (
+        <p className="card-desc">{task.description}</p>
+      )}
+
+      <div className="card-actions">
         {task.status === "pending" && (
-          <button className="complete-btn" onClick={complete}>
-            Mark Done
+          <button className="btn-complete" onClick={complete}>
+            Mark Complete
           </button>
         )}
-
-        <button className="delete-btn" onClick={remove}>
+        <button className="btn-delete" onClick={remove}>
           Delete
         </button>
       </div>

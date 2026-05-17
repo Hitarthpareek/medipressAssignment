@@ -4,35 +4,50 @@ import { createTask } from "../services/api";
 export default function TaskForm({ refresh }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [open, setOpen] = useState(false);
 
   const submit = async (e) => {
     e.preventDefault();
-
-    if (!title) return;
-
+    if (!title.trim()) return;
     await createTask({ title, description });
-
     setTitle("");
     setDescription("");
-
+    setOpen(false);
     refresh();
   };
 
   return (
-    <form className="task-form" onSubmit={submit}>
-      <input
-        placeholder="Task title..."
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-
-      <textarea
-        placeholder="Description..."
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-
-      <button>Add Task</button>
-    </form>
+    <div className="task-form-wrapper">
+      {!open ? (
+        <button className="add-task-trigger" onClick={() => setOpen(true)}>
+          <span>+</span> New Task
+        </button>
+      ) : (
+        <form className="task-form" onSubmit={submit}>
+          <input
+            className="form-input"
+            placeholder="Task title..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            autoFocus
+          />
+          <textarea
+            className="form-textarea"
+            placeholder="Add a description (optional)..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={3}
+          />
+          <div className="form-actions">
+            <button type="button" className="btn-cancel" onClick={() => setOpen(false)}>
+              Cancel
+            </button>
+            <button type="submit" className="btn-add">
+              Add Task
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
   );
 }

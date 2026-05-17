@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import { getUser, logout } from "./utils/auth";
@@ -13,26 +13,24 @@ export default function HomePage5() {
 
   return (
     <div className="app">
-      {/* NAVBAR */}
-      <div className="navbar">
-        <div className="logo">TaskFlow</div>
-
+      <nav className="navbar">
+        <div className="logo">
+          <span className="logo-icon">✦</span>
+          TaskFlow
+        </div>
         <div className="nav-right">
-          <span className="user">Hi, {user.name || "User"}</span>
-
+          <div className="user-pill">
+            <span className="user-avatar">{(user.name || "U")[0].toUpperCase()}</span>
+            <span className="user-name">Hi, {user.name || "User"}</span>
+          </div>
           <button
             className="logout-btn"
-            onClick={() => {
-              logout();
-              setUser(null);
-            }}
+            onClick={() => { logout(); setUser(null); }}
           >
-            Logout
+            Sign out
           </button>
         </div>
-      </div>
-
-      {/* DASHBOARD */}
+      </nav>
       <Dashboard />
     </div>
   );
