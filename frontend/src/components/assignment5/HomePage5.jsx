@@ -3,7 +3,7 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import { getUser, logout } from "./utils/auth";
 import "./HomePage5.css";
-import "../commonComponents/Header/Header"
+import Header from "../commonComponents/Header/Header";
 
 export default function HomePage5() {
   const [user, setUser] = useState(getUser());
