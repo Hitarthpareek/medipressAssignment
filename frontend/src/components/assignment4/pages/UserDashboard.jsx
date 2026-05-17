@@ -10,7 +10,25 @@ export default function UserDashboard({
 }) {
 
   return (
-    <div>
+
+    <div className="user-dashboard">
+
+      <div className="dashboard-hero">
+
+        <div>
+
+          <h1>
+            Your Projects
+          </h1>
+
+          <p>
+            Track and manage your
+            ongoing work
+          </p>
+
+        </div>
+
+      </div>
 
       <StatsCards
         projects={projects}
@@ -36,5 +54,6 @@ export default function UserDashboard({
       </div>
 
     </div>
+
   );
 }
