@@ -757,12 +757,12 @@ body{
   margin-bottom: 20px;
   border-radius:28px;
 
-  padding:30px;
+  padding:24px;
 
   display:flex;
   flex-direction:column;
 
-  gap:30px;
+  gap:18px;
 
   transition:0.3s;
 
@@ -772,7 +772,7 @@ body{
   box-shadow:
   0 12px 28px rgba(15,23,42,0.04);
 
-  min-height:250px;
+  min-height:300px;
 }
 
 .project-card:hover{
