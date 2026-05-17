@@ -169,7 +169,7 @@ body{
     #7c3aed
   );
 }
-.dashboard-table tr:hover{
+.dashboard-table tr{
   background-color: #cbdafb;
 }
 
