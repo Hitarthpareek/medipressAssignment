@@ -495,13 +495,27 @@ body{
 
 .checkbox-row{
   display:flex;
+
   align-items:center;
 
-  gap:10px;
+  gap:12px;
 
-  color:#475569;
+  min-height:52px;
+
+  padding:0 4px;
+
+  color:#334155;
 
   font-weight:500;
+}
+
+.checkbox-row input{
+  width:18px;
+  height:18px;
+
+  accent-color:#2563eb;
+
+  cursor:pointer;
 }
 
 .project-form button{
@@ -659,6 +673,8 @@ body{
 }
 
 .show-password-btn{
+    height: 30px;
+    width: 30px;
   position:absolute;
 
   right:14px;
@@ -685,6 +701,89 @@ body{
 .show-password-btn:hover{
   opacity:0.7;
 }
+
+.ongoing-badge{
+  background:#dcfce7;
+
+  color:#16a34a;
+}
+
+.completed-badge{
+  background:#dbeafe;
+
+  color:#2563eb;
+}
+
+.complete-btn{
+  margin-top:10px;
+
+  border:none;
+
+  height:48px;
+
+  border-radius:14px;
+
+  background:
+  linear-gradient(
+    to right,
+    #16a34a,
+    #22c55e
+  );
+
+  color:white;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.complete-btn:hover{
+  transform:translateY(-2px);
+
+  opacity:0.92;
+}
+
+
+.dashboard-filters{
+  display:flex;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+}
+
+.dashboard-filters button{
+  border:none;
+
+  padding:12px 18px;
+
+  border-radius:14px;
+
+  background:white;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+  transition:0.3s;
+
+  box-shadow:
+  0 6px 18px
+  rgba(0,0,0,0.05);
+}
+
+.dashboard-filters button:hover{
+  transform:translateY(-2px);
+}
+
+.active-filter{
+  background:#2563eb !important;
+
+  color:white;
+}
+
 
 /* RESPONSIVE */
 

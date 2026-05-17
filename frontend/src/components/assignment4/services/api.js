@@ -85,3 +85,17 @@ export const createProject =
 
     return response.json();
 };
+
+export const completeProject =
+  async (id) => {
+
+    const response =
+      await fetch(
+        `/api/projects/${id}/complete`,
+        {
+          method: "PUT",
+        }
+      );
+
+    return response.json();
+};

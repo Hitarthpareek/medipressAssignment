@@ -78,8 +78,41 @@ const getUserProjects =
     }
 };
 
+const completeProject =
+  async (req, res) => {
+
+    try {
+
+      const project =
+        await Project.findByIdAndUpdate(
+
+          req.params.id,
+
+          {
+            isOngoing: false,
+
+            endDate:
+              new Date(),
+          },
+
+          { new: true }
+        );
+
+      res.json(project);
+
+    } catch (error) {
+
+      res.status(500).json({
+        message:
+          error.message,
+      });
+
+    }
+};
+
 module.exports = {
   createProject,
   getProjects,
   getUserProjects,
+  completeProject
 };

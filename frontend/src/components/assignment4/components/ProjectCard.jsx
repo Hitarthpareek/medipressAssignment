@@ -1,5 +1,6 @@
 export default function ProjectCard({
   project,
+  onComplete,
 }) {
 
   const start =
@@ -80,6 +81,24 @@ export default function ProjectCard({
         </div>
 
       </div>
+
+      {project.isOngoing && (
+
+        <button
+          className="complete-btn"
+
+          onClick={() =>
+            onComplete(
+              project._id
+            )
+          }
+        >
+
+          Mark Completed
+
+        </button>
+
+      )}
 
     </div>
   );

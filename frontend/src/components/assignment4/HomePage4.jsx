@@ -20,6 +20,8 @@ import UserProfile from "./pages/UserProfile";
 
 import toast from "react-hot-toast";
 
+import { completeProject } from "./services/api";
+
 
 
 import {
@@ -59,6 +61,30 @@ export default function HomePage4() {
     }
 
   }, []);
+
+  const handleCompleteProject =
+  async (id) => {
+
+    try {
+
+      await completeProject(
+        id
+      );
+
+      toast.success(
+        "Project Completed"
+      );
+
+      fetchProjects();
+
+    } catch (error) {
+
+      toast.error(
+        "Failed to update"
+      );
+
+    }
+};
 
   const fetchProjects =
     async () => {
@@ -264,6 +290,11 @@ fetchProjects();
           onAddProject={
             handleAddProject
           }
+
+           onCompleteProject={
+    handleCompleteProject
+  }
+          
         />
 
       )}

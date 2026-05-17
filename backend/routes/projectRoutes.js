@@ -33,4 +33,9 @@ router.post(
   createProject
 );
 
+router.put(
+  "/:id/complete",
+  completeProject
+);
+
 module.exports = router;
