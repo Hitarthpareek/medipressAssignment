@@ -8,7 +8,7 @@ import Dashboard from "./components/Dashboard";
 
 import {
   loginUser,
-} from "../api";
+} from "./services/api";
 
 import {
   saveAuth,
