@@ -1,10 +1,9 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 
 export default function LoginForm({
   onLogin,
   onSignup,
 }) {
-
 
   const [isLogin, setIsLogin] =
     useState(true);
@@ -16,24 +15,52 @@ export default function LoginForm({
       password: "",
     });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+
+    setFormData({
+      ...formData,
+
+      [e.target.name]:
+        e.target.value,
+    });
+  };
+
+  const handleSubmit = async (
+    e
+  ) => {
 
     e.preventDefault();
 
-    setTimeout(() => {
-
-  setIsLogin(true);
-
-}, 1000);
+    /* LOGIN */
 
     if (isLogin) {
 
-      onLogin(formData);
+      onLogin({
+        email: formData.email,
 
-    } else {
+        password:
+          formData.password,
+      });
 
-      onSignup(formData);
+      return;
+    }
 
+    /* SIGNUP */
+
+    const success =
+      await onSignup(formData);
+
+    /* SWITCH TO LOGIN */
+
+    if (success) {
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+      });
+
+      setIsLogin(true);
     }
   };
 
@@ -46,47 +73,42 @@ export default function LoginForm({
       >
 
         <h1>
+
           {isLogin
             ? "Login"
             : "Create Account"}
+
         </h1>
 
         {!isLogin && (
+
           <input
             type="text"
-            placeholder="Name"
+            name="name"
+            placeholder="Full Name"
             value={formData.name}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                name: e.target.value,
-              })
-            }
+            onChange={handleChange}
+            required
           />
+
         )}
 
         <input
           type="email"
+          name="email"
           placeholder="Email"
           value={formData.email}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              email: e.target.value,
-            })
-          }
+          onChange={handleChange}
+          required
         />
 
         <input
           type="password"
+          name="password"
           placeholder="Password"
           value={formData.password}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              password: e.target.value,
-            })
-          }
+          onChange={handleChange}
+          required
         />
 
         <button type="submit">
@@ -97,7 +119,7 @@ export default function LoginForm({
 
         </button>
 
-        <p>
+        <p className="auth-switch">
 
           {isLogin
             ? "Don't have account?"
@@ -105,7 +127,9 @@ export default function LoginForm({
 
           <span
             onClick={() =>
-              setIsLogin(!isLogin)
+              setIsLogin(
+                !isLogin
+              )
             }
           >
 

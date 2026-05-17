@@ -85,30 +85,32 @@ const handleSignup =
           formData
         );
 
-      if (data.message) {
-
-        toast.success(
-          "Account Created"
-        );
-
-        toast(
-          "Please Login"
-        );
-
-      } else {
+      if (!data.success) {
 
         toast.error(
-          "Signup Failed"
+          data.message
         );
 
+        return false;
       }
+
+      toast.success(
+        "Account Created"
+      );
+
+      toast(
+        "Please Login"
+      );
+
+      return true;
 
     } catch (error) {
 
       toast.error(
-        "Something went wrong"
+        "Signup Failed"
       );
 
+      return false;
     }
 };
 
