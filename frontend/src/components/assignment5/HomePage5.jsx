@@ -20,26 +20,22 @@ export default function HomePage5() {
   };
 
   return (
-    <div className="homepage5">
+<div className="app-shell">
 
-      {!user ? (
-        <Login onLogin={setUser} />
-      ) : (
-        <div>
-          {/* HEADER */}
-          <div className="top-bar">
-            <h2>Welcome, {user.name}</h2>
+  <aside className="sidebar">
+    <h2>TaskFlow</h2>
 
-            <button onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
+    <nav>
+      <button>Dashboard</button>
+      <button>Tasks</button>
+      <button>Settings</button>
+    </nav>
+  </aside>
 
-          {/* DASHBOARD */}
-          <Dashboard />
-        </div>
-      )}
+  <main className="main">
+    {/* Login OR Dashboard */}
+  </main>
 
-    </div>
+</div>
   );
 }
