@@ -283,7 +283,6 @@ body{
   right:10px;
   top:50%;
 
-  transform:translateY(-50%);
 
   width:42px;
   height:42px;
@@ -871,4 +870,45 @@ body{
   .project-dates{
     flex-direction:column;
   }
+}
+
+.open-project-btn,
+.back-project-btn{
+  margin-top:18px;
+
+  border:none;
+
+  height:52px;
+
+  padding:0 22px;
+
+  border-radius:16px;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.open-project-btn{
+  background:
+  linear-gradient(
+    to right,
+    #16a34a,
+    #22c55e
+  );
+
+  color:white;
+}
+
+.back-project-btn{
+  background:#f1f5f9;
+
+  color:#0f172a;
+}
+
+.open-project-btn:hover,
+.back-project-btn:hover{
+  transform:translateY(-2px);
 }

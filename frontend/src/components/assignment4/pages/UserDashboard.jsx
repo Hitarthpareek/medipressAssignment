@@ -16,6 +16,10 @@ export default function UserDashboard({
   const [filter, setFilter] =
     useState("all");
 
+    const [showAddProject,
+setShowAddProject] =
+  useState(false);
+
   const filteredProjects =
     useMemo(() => {
 
@@ -59,66 +63,109 @@ export default function UserDashboard({
 
       {/* LEFT SIDE */}
 
-      <div className="dashboard-left">
+<div className="dashboard-left">
 
-        <div className="left-top">
+  <div className="left-top">
 
-          <h1>
-            Project Manager
-          </h1>
+    <h1>
+      Project Manager
+    </h1>
 
-          <p>
-            Track ongoing and
-            completed projects.
-          </p>
+    {!showAddProject ? (
 
-        </div>
+      <button
+        className="open-project-btn"
 
-        <div className="stats-vertical">
+        onClick={() =>
+          setShowAddProject(
+            true
+          )
+        }
+      >
 
-          <div className="stats-card">
+        + Add Project
 
-            <h2>
-              {projects.length}
-            </h2>
+      </button>
 
-            <p>
-              Total Projects
-            </p>
+    ) : (
 
-          </div>
+      <button
+        className="back-project-btn"
 
-          <div className="stats-card ongoing-card">
+        onClick={() =>
+          setShowAddProject(
+            false
+          )
+        }
+      >
 
-            <h2>
-              {ongoingCount}
-            </h2>
+        ← Back
 
-            <p>
-              Ongoing
-            </p>
+      </button>
 
-          </div>
+    )}
 
-          <div className="stats-card completed-card">
+  </div>
 
-            <h2>
-              {completedCount}
-            </h2>
+  {!showAddProject ? (
 
-            <p>
-              Completed
-            </p>
+    <div className="stats-vertical">
 
-          </div>
+      <div className="stats-card">
 
-        </div>
+        <h2>
+          {projects.length}
+        </h2>
 
-        <AddProjectForm
-          onAdd={onAddProject}
-        />
+        <p>
+          Total Projects
+        </p>
 
       </div>
+
+      <div className="stats-card ongoing-card">
+
+        <h2>
+          {ongoingCount}
+        </h2>
+
+        <p>
+          Ongoing
+        </p>
+
+      </div>
+
+      <div className="stats-card completed-card">
+
+        <h2>
+          {completedCount}
+        </h2>
+
+        <p>
+          Completed
+        </p>
+
+      </div>
+
+    </div>
+
+  ) : (
+
+    <AddProjectForm
+      onAdd={(data) => {
+
+        onAddProject(data);
+
+        setShowAddProject(
+          false
+        );
+
+      }}
+    />
+
+  )}
+
+</div>
 
       {/* RIGHT SIDE */}
 
