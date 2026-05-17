@@ -40,16 +40,33 @@ export default function UserDashboard({
 
       <div className="projects-grid">
 
-        {projects.map(
-          (project) => (
+        {projects.length === 0 ? (
 
-            <ProjectCard
-              key={project._id}
-              project={project}
-            />
+  <div className="empty-projects">
 
-          )
-        )}
+    <h2>
+      No Projects Yet
+    </h2>
+
+    <p>
+      Add your first project
+      to start tracking work.
+    </p>
+
+  </div>
+
+) : (
+
+  projects.map((project) => (
+
+    <ProjectCard
+      key={project._id}
+      project={project}
+    />
+
+  ))
+
+)}
 
       </div>
 

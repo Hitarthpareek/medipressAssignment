@@ -10,7 +10,9 @@ export default function ProjectCard({
   const end =
     project.isOngoing
       ? new Date()
-      : new Date(project.endDate);
+      : new Date(
+          project.endDate
+        );
 
   const days =
     Math.floor(
@@ -21,25 +23,63 @@ export default function ProjectCard({
   return (
     <div className="project-card">
 
-      <h3>
-        {project.projectName}
-      </h3>
+      <div className="project-top">
 
-      <p>
+        <h3>
+          {project.projectName}
+        </h3>
+
+        <span
+          className={
+            project.isOngoing
+              ? "ongoing-badge"
+              : "completed-badge"
+          }
+        >
+
+          {project.isOngoing
+            ? "Ongoing"
+            : "Completed"}
+
+        </span>
+
+      </div>
+
+      <p className="project-description">
+
         {project.description}
+
       </p>
 
-      <span>
+      <div className="project-dates">
 
-        {project.isOngoing
-          ? "Ongoing"
-          : "Completed"}
+        <div>
 
-      </span>
+          <small>
+            Started
+          </small>
 
-      <p>
-        {days} Days
-      </p>
+          <p>
+            {new Date(
+              project.startDate
+            ).toLocaleDateString()}
+          </p>
+
+        </div>
+
+        <div>
+
+          <small>
+            Duration
+          </small>
+
+          <p>
+            {days} Days
+          </p>
+
+        </div>
+
+      </div>
 
     </div>
   );
