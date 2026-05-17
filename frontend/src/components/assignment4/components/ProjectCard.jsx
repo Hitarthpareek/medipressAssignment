@@ -23,7 +23,7 @@ export default function ProjectCard({
     );
 
   return (
-    <div className={project.isOngoing?"project-card ongoing":"project-card completed"}>
+    <div className= {enableMarktodo?project.isOngoing?"project-card ongoing mh300":"project-card completed mh300":project.isOngoing?"project-card ongoing":"project-card completed"} >
 
       <div className="project-top">
 
