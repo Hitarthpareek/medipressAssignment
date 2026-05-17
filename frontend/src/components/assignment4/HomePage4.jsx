@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import Header from "../commonComponents/Header";
+import Header from "../commonComponents/Header/Header";
 
 import LoginForm from "./components/LoginForm";
 import Navbar from "./components/Navbar";
