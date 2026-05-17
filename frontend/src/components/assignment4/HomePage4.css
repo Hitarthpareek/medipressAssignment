@@ -162,10 +162,10 @@ body{
 }
 
 .dashboard-table thead{
-  background:#eff6ff;
-}
-.dashboard-table thead:hover{
   background-color: #93b3f9;
+}
+.dashboard-table tr:hover{
+  background-color: #dce7ff;
 }
 
 .dashboard-table th{

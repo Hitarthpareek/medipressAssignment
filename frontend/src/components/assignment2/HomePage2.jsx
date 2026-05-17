@@ -1,5 +1,5 @@
 // HomePage2.jsx
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./HomePage2.css";
 import Header from "../commonComponents/Header/Header"
 
