@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import { getUser, logout } from "./utils/auth";
 import "./HomePage5.css";
+import "../commonComponents/Header/Header"
 
 export default function HomePage5() {
   const [user, setUser] = useState(getUser());
@@ -11,6 +12,7 @@ export default function HomePage5() {
 
   return (
     <div className="app">
+     {!user?<Header/>:"" }
       <nav className="navbar">
         <div className="logo">
           <div className="logo-mark">T</div>
@@ -19,8 +21,6 @@ export default function HomePage5() {
 
         <div className="nav-center">
           <button className="nav-link active">Dashboard</button>
-          <button className="nav-link">Calendar</button>
-          <button className="nav-link">Team</button>
         </div>
 
         <div className="nav-right">
