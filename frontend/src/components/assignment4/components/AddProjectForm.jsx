@@ -63,25 +63,30 @@ export default function AddProjectForm({
         }
       />
 
-      <label>
+<label className="modern-checkbox">
 
-        <input
-          type="checkbox"
-          checked={
-            formData.isOngoing
-          }
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              isOngoing:
-                e.target.checked,
-            })
-          }
-        />
+  <input
+    type="checkbox"
 
-        Ongoing
+    checked={
+      formData.isOngoing
+    }
 
-      </label>
+    onChange={(e) =>
+      setFormData({
+        ...formData,
+
+        isOngoing:
+          e.target.checked,
+      })
+    }
+  />
+
+  <span className="checkmark"></span>
+
+  Currently Working
+
+</label>
 
       {!formData.isOngoing && (
         <input

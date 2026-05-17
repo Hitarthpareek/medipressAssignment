@@ -1,163 +1,241 @@
+import {
+  useMemo,
+  useState,
+} from "react";
+
 import AddProjectForm from "../components/AddProjectForm";
 
 import ProjectCard from "../components/ProjectCard";
 
-import StatsCards from "../components/StatsCards";
-
-import { useMemo, useState } from "react";
-
 export default function UserDashboard({
   projects,
   onAddProject,
-  onCompleteProject
+  onCompleteProject,
 }) {
 
-    const [filter, setFilter] =
-  useState("all");
+  const [filter, setFilter] =
+    useState("all");
 
   const filteredProjects =
-  useMemo(() => {
+    useMemo(() => {
 
-    if (filter === "ongoing") {
+      if (filter === "ongoing") {
 
-      return projects.filter(
-        (project) =>
-          project.isOngoing
-      );
-    }
+        return projects.filter(
+          (project) =>
+            project.isOngoing
+        );
+      }
 
-    if (filter === "completed") {
+      if (
+        filter ===
+        "completed"
+      ) {
 
-      return projects.filter(
-        (project) =>
-          !project.isOngoing
-      );
-    }
+        return projects.filter(
+          (project) =>
+            !project.isOngoing
+        );
+      }
 
-    return projects;
+      return projects;
 
-  }, [projects, filter]);
+    }, [projects, filter]);
+
+  const ongoingCount =
+    projects.filter(
+      (project) =>
+        project.isOngoing
+    ).length;
+
+  const completedCount =
+    projects.filter(
+      (project) =>
+        !project.isOngoing
+    ).length;
 
   return (
+    <div className="user-dashboard-layout">
 
-    <div className="user-dashboard">
+      {/* LEFT SIDE */}
 
-<div className="dashboard-hero">
+      <div className="dashboard-left">
 
-  <div>
+        <div className="left-top">
 
-    <h1>
-      Project Dashboard
-    </h1>
+          <h1>
+            Project Manager
+          </h1>
 
-    <p>
-      Manage your projects,
-      track ongoing work and
-      completed tasks.
-    </p>
+          <p>
+            Track ongoing and
+            completed projects.
+          </p>
 
-  </div>
+        </div>
 
-  <div className="dashboard-filters">
+        <div className="stats-vertical">
 
-    <button
-      className={
-        filter === "all"
-          ? "active-filter"
-          : ""
-      }
+          <div className="stats-card">
 
-      onClick={() =>
-        setFilter("all")
-      }
-    >
+            <h2>
+              {projects.length}
+            </h2>
 
-      All
+            <p>
+              Total Projects
+            </p>
 
-    </button>
+          </div>
 
-    <button
-      className={
-        filter === "ongoing"
-          ? "active-filter"
-          : ""
-      }
+          <div className="stats-card ongoing-card">
 
-      onClick={() =>
-        setFilter(
-          "ongoing"
-        )
-      }
-    >
+            <h2>
+              {ongoingCount}
+            </h2>
 
-      Ongoing
+            <p>
+              Ongoing
+            </p>
 
-    </button>
+          </div>
 
-    <button
-      className={
-        filter === "completed"
-          ? "active-filter"
-          : ""
-      }
+          <div className="stats-card completed-card">
 
-      onClick={() =>
-        setFilter(
-          "completed"
-        )
-      }
-    >
+            <h2>
+              {completedCount}
+            </h2>
 
-      Completed
+            <p>
+              Completed
+            </p>
 
-    </button>
+          </div>
 
-  </div>
+        </div>
 
-</div>
+        <AddProjectForm
+          onAdd={onAddProject}
+        />
 
-      <StatsCards
-        projects={projects}
-      />
+      </div>
 
-      <AddProjectForm
-        onAdd={onAddProject}
-      />
+      {/* RIGHT SIDE */}
 
-      <div className="projects-grid">
+      <div className="dashboard-right">
 
-        {projects.length === 0 ? (
+        <div className="right-top">
 
-  <div className="empty-projects">
+          <h2>
+            Your Projects
+          </h2>
 
-    <h2>
-      No Projects Yet
-    </h2>
+          <div className="dashboard-filters">
 
-    <p>
-      Add your first project
-      to start tracking work.
-    </p>
+            <button
+              className={
+                filter === "all"
+                  ? "active-filter"
+                  : ""
+              }
 
-  </div>
+              onClick={() =>
+                setFilter("all")
+              }
+            >
 
-) : (
+              All
 
-  filteredProjects.map((project) => (
+            </button>
 
-    <ProjectCard
-      key={project._id}
-      project={project}
-      onComplete={onCompleteProject}
-    />
+            <button
+              className={
+                filter ===
+                "ongoing"
+                  ? "active-filter"
+                  : ""
+              }
 
-  ))
+              onClick={() =>
+                setFilter(
+                  "ongoing"
+                )
+              }
+            >
 
-)}
+              Ongoing
+
+            </button>
+
+            <button
+              className={
+                filter ===
+                "completed"
+                  ? "active-filter"
+                  : ""
+              }
+
+              onClick={() =>
+                setFilter(
+                  "completed"
+                )
+              }
+            >
+
+              Completed
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <div className="projects-scroll">
+
+          {filteredProjects
+            .length === 0 ? (
+
+            <div className="empty-projects">
+
+              <h2>
+                No Projects
+              </h2>
+
+              <p>
+                Add a project to
+                get started.
+              </p>
+
+            </div>
+
+          ) : (
+
+            filteredProjects.map(
+              (project) => (
+
+                <ProjectCard
+                  key={
+                    project._id
+                  }
+
+                  project={
+                    project
+                  }
+
+                  onComplete={
+                    onCompleteProject
+                  }
+                />
+
+              )
+            )
+
+          )}
+
+        </div>
 
       </div>
 
     </div>
-
   );
 }
