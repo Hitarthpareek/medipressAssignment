@@ -34,33 +34,41 @@ export default function HomePage4() {
     checkAuth();
   }, []);
 
-  const checkAuth = async () => {
-    try {
-      const token = getToken();
+const checkAuth = async () => {
 
-      if (!token) {
-        setLoading(false);
-        return;
-      }
+  try {
 
-      await fetchEmployees();
+    const token = getToken();
 
-      const savedUser = JSON.parse(
-        localStorage.getItem("user")
-      );
+    const savedUser =
+      localStorage.getItem("user");
 
-      if (savedUser) {
-        setUser(savedUser);
-      }
-
-    } catch (error) {
-      console.log(error);
-      logout();
-
-          } finally {
+    if (!token || !savedUser) {
       setLoading(false);
+      return;
     }
-  };
+
+    const parsedUser =
+      JSON.parse(savedUser);
+
+    setUser(parsedUser);
+
+    await fetchEmployees();
+
+  } catch (error) {
+
+    console.log(error);
+
+    logout();
+
+    localStorage.removeItem("user");
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
 
   const fetchEmployees = async () => {
     try {
@@ -94,17 +102,26 @@ export default function HomePage4() {
     }
   };
 
-    const handleSignup = async (formData) => {
-    try {
-      await registerUser(formData);
+const handleSignup = async (
+  formData
+) => {
 
-      alert("Account Created Successfully");
+  try {
 
-    } catch (error) {
-      console.log(error);
-      alert("Signup Failed");
-    }
-  };
+    await registerUser(formData);
+
+    alert(
+      "Signup successful. Please login."
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert("Signup Failed");
+
+  }
+};
 
   const handleLogout = () => {
     logout();
