@@ -1,62 +1,32 @@
-export default function TaskCard({
-  task,
-  onComplete,
-  onDelete,
-}) {
+import { updateTask, deleteTask } from "../services/api";
+
+export default function TaskCard({ task, onRefresh }) {
+  const markCompleted = async () => {
+    await updateTask(task._id, { status: "completed" });
+    onRefresh();
+  };
+
+  const handleDelete = async () => {
+    await deleteTask(task._id);
+    onRefresh();
+  };
 
   return (
-    <div
-      className={
-        task.completed
-          ? "task-card completed"
-          : "task-card"
-      }
-    >
+    <div className={`task-card ${task.status}`}>
+      <h3>{task.title}</h3>
+      <p>{task.description}</p>
 
-      <div>
+      <span>Status: {task.status}</span>
 
-        <h3>
-          {task.title}
-        </h3>
-
-        <p>
-          {task.completed
-            ? "Completed"
-            : "Pending"}
-        </p>
-
-      </div>
-
-      <div className="task-actions">
-
-        {!task.completed && (
-
-          <button
-            className="complete-btn"
-            onClick={() =>
-              onComplete(
-                task._id
-              )
-            }
-          >
-            Complete
+      <div className="actions">
+        {task.status === "pending" && (
+          <button onClick={markCompleted}>
+            Mark Completed
           </button>
-
         )}
 
-        <button
-          className="delete-btn"
-          onClick={() =>
-            onDelete(
-              task._id
-            )
-          }
-        >
-          Delete
-        </button>
-
+        <button onClick={handleDelete}>Delete</button>
       </div>
-
     </div>
   );
 }

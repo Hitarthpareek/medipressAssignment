@@ -1,47 +1,44 @@
 import { useState } from "react";
+import { createTask } from "../services/api";
 
-export default function TaskForm({
-  onAdd,
-}) {
+export default function TaskForm({ onTaskAdded }) {
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+  });
 
-  const [title, setTitle] =
-    useState("");
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit =
-    async (e) => {
+  const handleSubmit = async () => {
+    if (!form.title) return;
 
-      e.preventDefault();
+    const res = await createTask(form);
 
-      if (!title) return;
-
-      await onAdd({
-        title,
-      });
-
-      setTitle("");
-    };
+    if (res.success) {
+      onTaskAdded(res.task);
+      setForm({ title: "", description: "" });
+    }
+  };
 
   return (
-    <form
-      className="task-form"
-      onSubmit={handleSubmit}
-    >
-
+    <div className="task-form">
       <input
-        type="text"
-        placeholder="Enter task"
-        value={title}
-        onChange={(e) =>
-          setTitle(
-            e.target.value
-          )
-        }
+        name="title"
+        placeholder="Task title"
+        value={form.title}
+        onChange={handleChange}
       />
 
-      <button type="submit">
-        Add Task
-      </button>
+      <textarea
+        name="description"
+        placeholder="Description"
+        value={form.description}
+        onChange={handleChange}
+      />
 
-    </form>
+      <button onClick={handleSubmit}>Add Task</button>
+    </div>
   );
 }

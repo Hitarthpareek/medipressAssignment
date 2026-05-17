@@ -1,71 +1,44 @@
+import { useEffect, useState } from "react";
+import { getTasks } from "../services/api";
 import TaskForm from "./TaskForm";
-
 import TaskCard from "./TaskCard";
 
-export default function Dashboard({
-  tasks,
-  onAdd,
-  onComplete,
-  onDelete,
-}) {
+export default function Dashboard() {
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const completed =
-    tasks.filter(
-      (task) =>
-        task.completed
-    ).length;
+  const fetchTasks = async () => {
+    setLoading(true);
+    const res = await getTasks();
 
-  const pending =
-    tasks.filter(
-      (task) =>
-        !task.completed
-    ).length;
+    if (res.success) {
+      setTasks(res.tasks);
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   return (
     <div className="dashboard">
+      <TaskForm onTaskAdded={fetchTasks} />
 
-      <div className="summary-grid">
+      {loading && <p>Loading...</p>}
 
-        <div className="summary-card">
-          <h2>
-            {tasks.length}
-          </h2>
-          <p>Total Tasks</p>
+      {!loading && (
+        <div className="task-list">
+          {tasks.map((task) => (
+            <TaskCard
+              key={task._id}
+              task={task}
+              onRefresh={fetchTasks}
+            />
+          ))}
         </div>
-
-        <div className="summary-card">
-          <h2>
-            {pending}
-          </h2>
-          <p>Pending</p>
-        </div>
-
-        <div className="summary-card">
-          <h2>
-            {completed}
-          </h2>
-          <p>Completed</p>
-        </div>
-
-      </div>
-
-      <TaskForm onAdd={onAdd} />
-
-      <div className="tasks-grid">
-
-        {tasks.map((task) => (
-
-          <TaskCard
-            key={task._id}
-            task={task}
-            onComplete={onComplete}
-            onDelete={onDelete}
-          />
-
-        ))}
-
-      </div>
-
+      )}
     </div>
   );
 }

@@ -1,146 +1,43 @@
-import "./HomePage5.css";
-
-import { useEffect,useState } from "react";
-
-import LoginForm from "./components/LoginForm";
-
-import Dashboard from "./components/Dashboard";
-
-import {
-  loginUser,
-} from "./services/api";
-
-import {
-  saveAuth,
-  getUser,
-  logout,
-} from "./utils/auth";
-
-import {
-  getTasks,
-  createTask,
-  completeTask,
-  deleteTask,
-} from "./api/taskApi";
+import { useEffect, useState } from "react";
+import Login from "../components/Login";
+import Dashboard from "../components/Dashboard";
+import { getUser, logout } from "../utils/auth";
 
 export default function HomePage5() {
-
-  const [user, setUser] =
-    useState(getUser());
-
-  const [tasks, setTasks] =
-    useState([]);
-
-  const loadTasks =
-    async () => {
-
-      const data =
-        await getTasks();
-
-      setTasks(data);
-    };
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-
-    if (user) {
-      loadTasks();
+    const savedUser = getUser();
+    if (savedUser) {
+      setUser(savedUser);
     }
+  }, []);
 
-  }, [user]);
-
-  const handleLogin =
-    async (formData) => {
-
-      const data =
-        await loginUser(
-          formData
-        );
-
-      if (data.token) {
-
-        saveAuth(
-          data.token,
-          data.user
-        );
-
-        setUser(data.user);
-      }
-    };
-
-  const handleAddTask =
-    async (taskData) => {
-
-      await createTask(
-        taskData
-      );
-
-      loadTasks();
-    };
-
-  const handleComplete =
-    async (id) => {
-
-      await completeTask(id);
-
-      loadTasks();
-    };
-
-  const handleDelete =
-    async (id) => {
-
-      await deleteTask(id);
-
-      loadTasks();
-    };
-
-  if (!user) {
-
-    return (
-      <div className="homepage5">
-
-        <LoginForm
-          onLogin={
-            handleLogin
-          }
-        />
-
-      </div>
-    );
-  }
+  const handleLogout = () => {
+    logout();
+    setUser(null);
+  };
 
   return (
     <div className="homepage5">
 
-      <nav className="navbar">
+      {!user ? (
+        <Login onLogin={setUser} />
+      ) : (
+        <div>
+          {/* HEADER */}
+          <div className="top-bar">
+            <h2>Welcome, {user.name}</h2>
 
-        <h2>
-          Task Dashboard
-        </h2>
+            <button onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
 
-        <button
-          onClick={() => {
-
-            logout();
-
-            setUser(null);
-
-          }}
-        >
-          Logout
-        </button>
-
-      </nav>
-
-      <Dashboard
-        tasks={tasks}
-        onAdd={handleAddTask}
-        onComplete={
-          handleComplete
-        }
-        onDelete={
-          handleDelete
-        }
-      />
+          {/* DASHBOARD */}
+          <Dashboard />
+        </div>
+      )}
 
     </div>
   );

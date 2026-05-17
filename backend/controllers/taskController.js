@@ -106,11 +106,11 @@ const updateTask = async (
       req.body.description ||
       task.description;
 
-    if (req.body.status) {
-
-      task.status =
-        req.body.status;
-    }
+if (req.body.status) {
+  if (["pending", "completed"].includes(req.body.status)) {
+    task.status = req.body.status;
+  }
+}
 
     await task.save();
 
