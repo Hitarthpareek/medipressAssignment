@@ -83,7 +83,7 @@ export default function ProjectCard({
 
       </div>
 
-      {project.isOngoing && enableMarktodo (
+      {project.isOngoing && {enableMarktodo} (
 
         <button
           className="complete-btn"

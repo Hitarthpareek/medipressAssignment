@@ -264,15 +264,12 @@ setShowAddProject] =
                   key={
                     project._id
                   }
-
                   project={
                     project
                   }
-
                   onComplete={
                     onCompleteProject
                   }
-
                   enableMarktod={true}
 
                   
