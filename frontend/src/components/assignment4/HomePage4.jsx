@@ -62,6 +62,12 @@ export default function HomePage4() {
 
   }, []);
 
+ useEffect(() => {
+
+  window.scrollTo(0, 0);
+
+}, []);
+
   const handleCompleteProject =
   async (id) => {
 
