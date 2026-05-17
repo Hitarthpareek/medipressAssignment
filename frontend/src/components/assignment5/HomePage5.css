@@ -1,29 +1,43 @@
-/* GLOBAL */
+/* =========================
+   GLOBAL
+========================= */
 body {
   margin: 0;
   font-family: Inter, sans-serif;
-  background: #f4f6fb;
+  background: #f6f7fb;
   color: #0f172a;
 }
 
-/* NAVBAR */
+/* =========================
+   NAVBAR (MODERN GLASS)
+========================= */
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 16px 28px;
-  background: white;
-  border-bottom: 1px solid #eee;
+  padding: 14px 28px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .logo {
   font-weight: 700;
   font-size: 18px;
+  letter-spacing: 0.3px;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+}
+
+.user {
+  font-size: 14px;
+  color: #475569;
 }
 
 .logout-btn {
@@ -33,65 +47,119 @@ body {
   padding: 8px 14px;
   border-radius: 10px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-/* DASHBOARD */
+.logout-btn:hover {
+  transform: translateY(-2px);
+  background: #dc2626;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
 .dashboard {
-  padding: 28px;
+  padding: 30px;
+}
+
+.dashboard-header {
+  margin-bottom: 20px;
 }
 
 .dashboard-header h2 {
   margin: 0;
+  font-size: 26px;
 }
 
 .dashboard-header p {
   color: #64748b;
 }
 
-/* FORM */
+/* =========================
+   FORM (GLASS CARD)
+========================= */
 .task-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 20px 0;
+  margin: 20px 0 30px;
+  padding: 16px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  transition: 0.3s;
+}
+
+.task-form:hover {
+  transform: translateY(-2px);
 }
 
 .task-form input,
 .task-form textarea {
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #e5e7eb;
   outline: none;
+  transition: 0.2s;
+}
+
+.task-form input:focus,
+.task-form textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
 }
 
 .task-form button {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: white;
   border: none;
   padding: 12px;
   border-radius: 12px;
   cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-/* GRID */
+.task-form button:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================
+   GRID
+========================= */
 .task-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
 }
 
-/* TASK CARD */
+/* =========================
+   TASK CARD (SAAS STYLE)
+========================= */
 .task-card {
   background: white;
   padding: 18px;
   border-radius: 18px;
   border: 1px solid #eee;
-  transition: 0.3s;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.task-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
 }
 
 .task-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
 }
 
 .task-top {
@@ -102,88 +170,146 @@ body {
 
 .task-card h3 {
   margin: 0;
+  font-size: 16px;
 }
 
-/* BADGES */
+/* =========================
+   BADGES
+========================= */
 .badge {
   font-size: 12px;
-  padding: 4px 10px;
+  padding: 5px 10px;
   border-radius: 999px;
+  font-weight: 500;
 }
 
 .pending {
-  background: #fef3c7;
-  color: #b45309;
+  background: #fff7ed;
+  color: #c2410c;
 }
 
 .completed {
-  background: #dcfce7;
-  color: #166534;
+  background: #ecfdf5;
+  color: #047857;
 }
 
+/* =========================
+   DESCRIPTION
+========================= */
 .desc {
   color: #64748b;
   font-size: 14px;
   margin-top: 8px;
 }
 
-/* ACTIONS */
+/* =========================
+   ACTION BUTTONS
+========================= */
 .task-actions {
   display: flex;
   gap: 10px;
   margin-top: 14px;
 }
 
-.complete-btn {
+.complete-btn,
+.delete-btn {
   flex: 1;
-  background: #16a34a;
-  color: white;
-  border: none;
   padding: 8px;
   border-radius: 10px;
+  border: none;
   cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.complete-btn {
+  background: #22c55e;
+  color: white;
+}
+
+.complete-btn:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
 }
 
 .delete-btn {
-  flex: 1;
   background: #ef4444;
   color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 10px;
-  cursor: pointer;
 }
 
-/* LOGIN */
-.login-page {
+.delete-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   LOGIN / AUTH (MODERN)
+========================= */
+.auth-wrapper {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: radial-gradient(circle at top, #eef2ff, #f6f7fb);
 }
 
-.login-card {
-  width: 320px;
+.auth-card {
+  width: 340px;
+  padding: 26px;
   background: white;
-  padding: 24px;
   border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: 0.3s;
 }
 
-.login-card button {
-  background: #2563eb;
+.auth-card:hover {
+  transform: translateY(-4px);
+}
+
+.auth-card h2 {
+  margin: 0;
+}
+
+.auth-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.auth-card input {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  outline: none;
+  transition: 0.2s;
+}
+
+.auth-card input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: white;
   border: none;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-/* LOADER */
-.loader {
+.primary-btn:hover {
+  transform: translateY(-2px);
+}
+
+.switch {
+  font-size: 13px;
   text-align: center;
-  margin-top: 40px;
-  color: #64748b;
+  color: #6366f1;
+  cursor: pointer;
 }
