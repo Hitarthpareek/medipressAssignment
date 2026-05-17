@@ -1,39 +1,39 @@
 import { updateTask, deleteTask } from "../services/api";
 
-export default function TaskCard({ task, onRefresh }) {
-
-  const completeTask = async () => {
+export default function TaskCard({ task, refresh }) {
+  const complete = async () => {
     await updateTask(task._id, { status: "completed" });
-    onRefresh();
+    refresh();
   };
 
-  const removeTask = async () => {
+  const remove = async () => {
     await deleteTask(task._id);
-    onRefresh();
+    refresh();
   };
 
   return (
     <div className={`task-card ${task.status}`}>
+      <div className="task-top">
+        <h3>{task.title}</h3>
 
-      <h3>{task.title}</h3>
-      <p>{task.description}</p>
+        <span className={`badge ${task.status}`}>
+          {task.status}
+        </span>
+      </div>
 
-      <span>{task.status}</span>
+      <p className="desc">{task.description}</p>
 
-      <div className="actions">
-
+      <div className="task-actions">
         {task.status === "pending" && (
-          <button onClick={completeTask}>
-            Complete
+          <button className="complete-btn" onClick={complete}>
+            Mark Done
           </button>
         )}
 
-        <button onClick={removeTask}>
+        <button className="delete-btn" onClick={remove}>
           Delete
         </button>
-
       </div>
-
     </div>
   );
 }

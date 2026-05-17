@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { getTasks } from "../services/api";
-import TaskForm from "./TaskForm";
 import TaskCard from "./TaskCard";
+import TaskForm from "./TaskForm";
+import Loader from "./Loader";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchTasks = async () => {
+    setLoading(true);
     const res = await getTasks();
-
-    if (res.success) {
-      setTasks(res.tasks);
-    }
+    setTasks(res.tasks || []);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -19,24 +20,34 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div>
-
-      <div className="top-bar">
-        <h2>My Tasks</h2>
+    <div className="dashboard">
+      {/* HEADER */}
+      <div className="dashboard-header">
+        <h2>Your Tasks</h2>
+        <p>Manage your work efficiently</p>
       </div>
 
-      <TaskForm onTaskAdded={fetchTasks} />
+      {/* FORM */}
+      <TaskForm refresh={fetchTasks} />
 
-      <div className="task-list">
-        {tasks.map((task) => (
-          <TaskCard
-            key={task._id}
-            task={task}
-            onRefresh={fetchTasks}
-          />
-        ))}
-      </div>
-
+      {/* CONTENT */}
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="task-grid">
+          {tasks.length === 0 ? (
+            <div className="empty">No tasks yet. Create one 🚀</div>
+          ) : (
+            tasks.map((task) => (
+              <TaskCard
+                key={task._id}
+                task={task}
+                refresh={fetchTasks}
+              />
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 }

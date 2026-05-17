@@ -1,64 +1,43 @@
 import { useState } from "react";
-import { loginUser, registerUser } from "../services/api";
+import { loginUser } from "../services/api";
 import { saveAuth } from "../utils/auth";
 
-export default function Login({ onLogin }) {
+export default function Login({ setUser }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [isLogin, setIsLogin] = useState(true);
-  const [form, setForm] = useState({});
+  const submit = async (e) => {
+    e.preventDefault();
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async () => {
-
-    const res = isLogin
-      ? await loginUser(form)
-      : await registerUser(form);
+    const res = await loginUser({ email, password });
 
     if (res.success) {
       saveAuth(res.token, res.user);
-      onLogin(res.user);
+      setUser(res.user);
     } else {
       alert(res.message);
     }
   };
 
   return (
-    <div className="login-container">
+    <div className="login-page">
+      <form className="login-card" onSubmit={submit}>
+        <h2>Welcome Back</h2>
+        <p>Login to manage your tasks</p>
 
-      <h2>{isLogin ? "Login" : "Register"}</h2>
-
-      {!isLogin && (
         <input
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
-      )}
 
-      <input
-        name="email"
-        placeholder="Email"
-        onChange={handleChange}
-      />
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        onChange={handleChange}
-      />
-
-      <button onClick={handleSubmit}>
-        {isLogin ? "Login" : "Register"}
-      </button>
-
-      <p onClick={() => setIsLogin(!isLogin)}>
-        Switch Mode
-      </p>
-
+        <button>Login</button>
+      </form>
     </div>
   );
 }

@@ -1,49 +1,38 @@
 import { useState } from "react";
 import { createTask } from "../services/api";
 
-export default function TaskForm({ onTaskAdded }) {
+export default function TaskForm({ refresh }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-  });
+  const submit = async (e) => {
+    e.preventDefault();
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    if (!title) return;
 
-  const handleSubmit = async () => {
-    if (!form.title) return;
+    await createTask({ title, description });
 
-    const res = await createTask(form);
+    setTitle("");
+    setDescription("");
 
-    if (res.success) {
-      setForm({ title: "", description: "" });
-      onTaskAdded();
-    }
+    refresh();
   };
 
   return (
-    <div className="task-form">
-
+    <form className="task-form" onSubmit={submit}>
       <input
-        name="title"
-        value={form.title}
-        placeholder="Task title"
-        onChange={handleChange}
+        placeholder="Task title..."
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
       />
 
       <textarea
-        name="description"
-        value={form.description}
-        placeholder="Description"
-        onChange={handleChange}
+        placeholder="Description..."
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       />
 
-      <button onClick={handleSubmit}>
-        Add Task
-      </button>
-
-    </div>
+      <button>Add Task</button>
+    </form>
   );
 }
