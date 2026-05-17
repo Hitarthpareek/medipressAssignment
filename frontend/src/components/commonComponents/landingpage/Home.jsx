@@ -3,7 +3,7 @@ import {Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div className="container">
+    <div className="container" style={{boxSizing:"border-box"}}>
       <h1 className="title">Assignment Dashboard</h1>
 
       <div className="card-grid">
