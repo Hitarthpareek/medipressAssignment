@@ -162,7 +162,12 @@ body{
 }
 
 .dashboard-table thead{
-  background-color: #acc6ff;
+  background:
+  linear-gradient(
+    to right,
+    #2563eb,
+    #7c3aed
+  );
 }
 .dashboard-table tr:hover{
   background-color: #cbdafb;
