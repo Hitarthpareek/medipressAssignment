@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import { getUser, logout } from "./utils/auth";
+import "./HomePage5.css"
 
 export default function HomePage5() {
   const [user, setUser] = useState(null);
