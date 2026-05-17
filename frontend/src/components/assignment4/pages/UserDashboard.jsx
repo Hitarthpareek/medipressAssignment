@@ -9,6 +9,7 @@ import { useMemo, useState } from "react";
 export default function UserDashboard({
   projects,
   onAddProject,
+  onCompleteProject
 }) {
 
     const [filter, setFilter] =
