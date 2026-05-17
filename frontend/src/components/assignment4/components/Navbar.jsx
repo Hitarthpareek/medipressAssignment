@@ -12,17 +12,28 @@ export default function Navbar({
 
       <div className="nav-right">
 
-        <span>
-          {user?.name}
-        </span>
+  <div className="nav-user">
 
-        <button
-          onClick={onLogout}
-        >
-          Logout
-        </button>
+    <span>
+      Welcome,
+    </span>
 
-      </div>
+    <strong>
+      {user?.name}
+    </strong>
+
+  </div>
+
+  <button
+    className="logout-btn"
+    onClick={onLogout}
+  >
+
+    Logout
+
+  </button>
+
+</div>
 
     </div>
   );

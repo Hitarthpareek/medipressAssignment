@@ -18,6 +18,8 @@ import UserDashboard from "./pages/UserDashboard";
 
 import UserProfile from "./pages/UserProfile";
 
+import toast from "react-hot-toast";
+
 import {
   loginUser,
   registerUser,
@@ -73,56 +75,92 @@ export default function HomePage4() {
       }
     };
 
-  const handleSignup =
-    async (formData) => {
+const handleSignup =
+  async (formData) => {
 
-      try {
+    try {
 
+      const data =
         await registerUser(
           formData
         );
 
-        alert(
-          "Signup Successful"
+      if (data.message) {
+
+        toast.success(
+          "Account Created"
         );
 
-      } catch (error) {
-
-        console.log(error);
-
-      }
-    };
-
-  const handleLogin =
-    async (formData) => {
-
-      try {
-
-        const data =
-          await loginUser(
-            formData
-          );
-
-        saveAuth(
-          data.token,
-          data.user
+        toast(
+          "Please Login"
         );
 
-        setUser(data.user);
+      } else {
 
-      } catch (error) {
-
-        console.log(error);
+        toast.error(
+          "Signup Failed"
+        );
 
       }
-    };
 
-  const handleLogout = () => {
+    } catch (error) {
 
-    logout();
+      toast.error(
+        "Something went wrong"
+      );
 
-    setUser(null);
-  };
+    }
+};
+
+const handleLogin =
+  async (formData) => {
+
+    try {
+
+      const data =
+        await loginUser(
+          formData
+        );
+
+      if (!data.token) {
+
+        toast.error(
+          "Invalid Credentials"
+        );
+
+        return;
+      }
+
+      saveAuth(
+        data.token,
+        data.user
+      );
+
+      setUser(data.user);
+
+      toast.success(
+        "Login Successful"
+      );
+
+    } catch (error) {
+
+      toast.error(
+        "Login Failed"
+      );
+
+    }
+};
+
+const handleLogout = () => {
+
+  logout();
+
+  setUser(null);
+
+  toast.success(
+    "Logged Out"
+  );
+};
 
   const handleAddProject =
     async (projectData) => {
@@ -136,11 +174,13 @@ export default function HomePage4() {
             user.name,
         };
 
-        await createProject(
-          payload
-        );
+await createProject(payload);
 
-        fetchProjects();
+toast.success(
+  "Project Added"
+);
+
+fetchProjects();
 
       } catch (error) {
 
@@ -159,12 +199,12 @@ export default function HomePage4() {
   return (
     <div className="homepage4">
 
-      <Navbar
-        user={user}
-        onLogout={
-          handleLogout
-        }
-      />
+      {user && (
+  <Navbar
+    user={user}
+    onLogout={handleLogout}
+  />
+)}
 
       {!user ? (
 

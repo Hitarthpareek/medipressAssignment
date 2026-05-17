@@ -5,6 +5,16 @@ export default function LoginForm({
   onSignup,
 }) {
 
+    useEffect(() => {
+
+  if (signupSuccess) {
+
+    setIsLogin(true);
+
+  }
+
+}, [signupSuccess]);
+
   const [isLogin, setIsLogin] =
     useState(true);
 
@@ -18,6 +28,12 @@ export default function LoginForm({
   const handleSubmit = (e) => {
 
     e.preventDefault();
+
+    setTimeout(() => {
+
+  setIsLogin(true);
+
+}, 1000);
 
     if (isLogin) {
 

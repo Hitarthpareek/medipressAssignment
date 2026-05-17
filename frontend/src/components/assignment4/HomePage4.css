@@ -227,6 +227,176 @@ body{
   color:#1d4ed8;
 }
 
+.navbar{
+  height:82px;
+
+  background:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 8%;
+
+  box-shadow:
+  0 6px 18px rgba(0,0,0,0.05);
+
+  margin-bottom:20px;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.nav-user{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  color:#475569;
+}
+
+.logout-btn{
+  border:none;
+
+  background:#ef4444;
+
+  color:white;
+
+  padding:12px 20px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+  transition:0.3s;
+}
+
+.logout-btn:hover{
+  transform:translateY(-2px);
+
+  background:#dc2626;
+}
+
+.dashboard-page{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.dashboard-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:10px;
+}
+
+.dashboard-top h1{
+  font-size:2.2rem;
+
+  color:#0f172a;
+
+  margin-bottom:8px;
+}
+
+.dashboard-top p{
+  color:#64748b;
+}
+
+.table-wrapper{
+  background:white;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.05);
+}
+
+.dashboard-table{
+  width:100%;
+
+  border-collapse:collapse;
+}
+
+.dashboard-table thead{
+  background:#eff6ff;
+}
+
+.dashboard-table th{
+  text-align:left;
+
+  padding:22px;
+
+  color:#1e293b;
+}
+
+.dashboard-table td{
+  padding:22px;
+
+  border-top:
+  1px solid #e2e8f0;
+
+  color:#475569;
+}
+
+.dashboard-table tbody tr{
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.dashboard-table tbody tr:hover{
+  background:#f8fafc;
+}
+
+.search-input{
+  width:100%;
+
+  height:60px;
+
+  border:none;
+
+  border-radius:18px;
+
+  padding:0 22px;
+
+  font-size:1rem;
+
+  background:white;
+
+  box-shadow:
+  0 8px 24px rgba(0,0,0,0.05);
+
+  outline:none;
+
+  transition:0.3s;
+}
+
+.search-input:focus{
+  box-shadow:
+  0 0 0 4px
+  rgba(37,99,235,0.1);
+}
+
+.project-card,
+.stats-card,
+.auth-card{
+  transition:0.3s;
+}
+
+.project-card:hover,
+.stats-card:hover,
+.auth-card:hover{
+  transform:translateY(-5px);
+}
+
 @media(max-width:992px){
 
   .public-layout{

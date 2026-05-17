@@ -1,10 +1,9 @@
-import { useMemo, useState } from "react";
+import {
+  useMemo,
+  useState,
+} from "react";
 
 import SearchBar from "../components/SearchBar";
-
-import UserCard from "../components/UserCard";
-
-import StatsCards from "../components/StatsCards";
 
 import { useNavigate } from "react-router-dom";
 
@@ -18,49 +17,166 @@ export default function Dashboard({
   const [search, setSearch] =
     useState("");
 
-  const filteredProjects =
+  const usersMap = {};
+
+  projects.forEach((project) => {
+
+    if (
+      !usersMap[
+        project.username
+      ]
+    ) {
+
+      usersMap[
+        project.username
+      ] = {
+        userId:
+          project.userId,
+
+        username:
+          project.username,
+
+        total: 0,
+
+        ongoing: 0,
+
+        completed: 0,
+      };
+    }
+
+    usersMap[
+      project.username
+    ].total++;
+
+    if (project.isOngoing) {
+
+      usersMap[
+        project.username
+      ].ongoing++;
+
+    } else {
+
+      usersMap[
+        project.username
+      ].completed++;
+    }
+  });
+
+  const users =
+    Object.values(usersMap);
+
+  const filteredUsers =
     useMemo(() => {
 
-      return projects.filter(
-        (project) =>
-          project.username
+      return users.filter(
+        (user) =>
+          user.username
             ?.toLowerCase()
             .includes(
               search.toLowerCase()
             )
       );
 
-    }, [projects, search]);
+    }, [users, search]);
 
   return (
-    <div>
+    <div className="dashboard-page">
+
+      <div className="dashboard-top">
+
+        <div>
+
+          <h1>
+            PMIS Dashboard
+          </h1>
+
+          <p>
+            Monitor employee
+            project progress
+          </p>
+
+        </div>
+
+      </div>
 
       <SearchBar
         search={search}
         setSearch={setSearch}
       />
 
-      <StatsCards
-        projects={projects}
-      />
+      <div className="table-wrapper">
 
-      <div className="users-grid">
+        <table className="dashboard-table">
 
-        {filteredProjects.map(
-          (project) => (
+          <thead>
 
-            <UserCard
-              key={project._id}
-              user={project}
-              onClick={() =>
-                navigate(
-                  `/assignment4/profile/${project.userId}`
-                )
-              }
-            />
+            <tr>
 
-          )
-        )}
+              <th>
+                Employee
+              </th>
+
+              <th>
+                Total
+              </th>
+
+              <th>
+                Ongoing
+              </th>
+
+              <th>
+                Completed
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {filteredUsers.map(
+              (user) => (
+
+                <tr
+                  key={
+                    user.userId
+                  }
+
+                  onClick={() =>
+                    navigate(
+                      `/assignment4/profile/${user.userId}`
+                    )
+                  }
+                >
+
+                  <td>
+                    {
+                      user.username
+                    }
+                  </td>
+
+                  <td>
+                    {user.total}
+                  </td>
+
+                  <td>
+                    {user.ongoing}
+                  </td>
+
+                  <td>
+                    {
+                      user.completed
+                    }
+                  </td>
+
+                </tr>
+
+              )
+            )}
+
+          </tbody>
+
+        </table>
 
       </div>
 
