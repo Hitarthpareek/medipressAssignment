@@ -10,6 +10,8 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 
+const taskRoutes = require("./routes/taskRoutes");
+
 const employeeRoutes = require("./routes/employeeRoutes");
 
 const projectRoutes = require("./routes/projectRoutes");
@@ -33,6 +35,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/employees", employeeRoutes);
 
 app.use("/api/projects", projectRoutes);
+
+app.use(
+  "/api/tasks",
+  taskRoutes
+);
 
 /* Frontend */
 

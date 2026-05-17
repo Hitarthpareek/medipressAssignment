@@ -167,11 +167,7 @@ body{
 
   padding:24px;
 
-  color:linear-gradient(
-    to right,
-    #2563eb,
-    #7c3aed
-  );;
+  color: rgb(176, 218, 255);
 
   font-size:0.9rem;
 

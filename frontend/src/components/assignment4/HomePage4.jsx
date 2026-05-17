@@ -8,6 +8,8 @@ import {
   Route,
 } from "react-router-dom";
 
+import Header from "../commonComponents/Header/Header";
+
 import Navbar from "./components/Navbar";
 
 import LoginForm from "./components/LoginForm";
@@ -234,7 +236,7 @@ fetchProjects();
 
   return (
     <div className="homepage4">
-
+  <Header/>
       {user && (
   <Navbar
     user={user}
