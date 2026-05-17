@@ -28,8 +28,8 @@ export default function Login({ setUser }) {
   };
 
   return (
+    <> <Header/>
     <div className="auth-page">
-      <Header/>
       {/* Left panel */}
       <div className="auth-left">
         <div className="auth-left-brand">
@@ -86,5 +86,5 @@ export default function Login({ setUser }) {
         </div>
       </div>
     </div>
-  );
+ </> );
 }
