@@ -5,15 +5,6 @@ export default function LoginForm({
   onSignup,
 }) {
 
-    useEffect(() => {
-
-  if (signupSuccess) {
-
-    setIsLogin(true);
-
-  }
-
-}, [signupSuccess]);
 
   const [isLogin, setIsLogin] =
     useState(true);
