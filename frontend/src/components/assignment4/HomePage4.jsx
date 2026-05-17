@@ -236,7 +236,7 @@ fetchProjects();
 
   return (
     <div className="homepage4">
-   {/* {!user && <Header/>}  */}
+   {!user && <Header/>} 
       {user && (
   <Navbar
     user={user}
