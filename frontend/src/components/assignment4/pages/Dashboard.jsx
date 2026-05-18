@@ -105,8 +105,7 @@ export default function Dashboard({
       />
 
       <div className="table-wrapper">
-
-        <table className="dashboard-table">
+{filteredUsers?        <table className="dashboard-table">
 
           <thead>
 
@@ -176,7 +175,8 @@ export default function Dashboard({
 
           </tbody>
 
-        </table>
+        </table>:<div>Loading....</div>}
+
 
       </div>
 

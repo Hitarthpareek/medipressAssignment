@@ -12,6 +12,7 @@ export default function LoginForm({
   const [isLogin, setIsLogin] =
     useState(true);
 
+    const [loading,setLoading] = useState(false);
     const [showPassword, setShowPassword] =
   useState(false);
 
@@ -38,6 +39,7 @@ export default function LoginForm({
 
     e.preventDefault();
 
+    setLoading(true);
     /* LOGIN */
 
     if (isLogin) {
@@ -48,7 +50,7 @@ export default function LoginForm({
         password:
           formData.password,
       });
-
+      setLoading(false)
       return;
     }
 
@@ -68,6 +70,7 @@ export default function LoginForm({
       });
 
       setIsLogin(true);
+      setLoading(false);
     }
   };
 
@@ -151,7 +154,7 @@ export default function LoginForm({
 
         <button type="submit">
 
-          {isLogin
+          { loading?"Loading....": isLogin
             ? "Login"
             : "Signup"}
 
@@ -171,7 +174,7 @@ export default function LoginForm({
             }
           >
 
-            {isLogin
+            {loading?"Loading....":isLogin
               ? " Signup"
               : " Login"}
 
