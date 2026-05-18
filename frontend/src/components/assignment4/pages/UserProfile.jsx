@@ -56,7 +56,7 @@ export default function UserProfile() {
 
   return (
     <div className="profile-page">
-
+    
       <div className="profile-top">
 
         <h1>
@@ -96,7 +96,8 @@ export default function UserProfile() {
 
       </div>
 
-      <div className="projects-grid">
+
+{projects.length>0?      <div className="projects-grid">
 
         {projects.map(
           (project) => (
@@ -110,7 +111,8 @@ export default function UserProfile() {
           )
         )}
 
-      </div>
+      </div>:<div>Loading....</div>}
+
 
     </div>
   );
