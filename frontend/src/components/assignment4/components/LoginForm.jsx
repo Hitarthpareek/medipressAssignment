@@ -174,7 +174,7 @@ export default function LoginForm({
             }
           >
 
-            {loading?"Loading....":isLogin
+            {isLogin
               ? " Signup"
               : " Login"}
 
