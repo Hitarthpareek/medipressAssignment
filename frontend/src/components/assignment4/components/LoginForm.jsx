@@ -75,6 +75,7 @@ const handleChange = (e) => {
       setIsLogin(true);
       setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
