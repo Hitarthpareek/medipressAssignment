@@ -111,7 +111,7 @@ export default function UserProfile() {
           )
         )}
 
-      </div>:<div>Loading....</div>}
+      </div>:<div style={{justifyContent:"center", alignItems:"center"}}>Loading....</div>}
 
 
     </div>
