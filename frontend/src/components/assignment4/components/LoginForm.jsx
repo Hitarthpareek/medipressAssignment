@@ -23,16 +23,19 @@ export default function LoginForm({
       password: "",
     });
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
 
-    setFormData({
-      ...formData,
+  const { name, value } = e.target;
 
-      [e.target.name]:
-        e.target.value,
-    });
-  };
+  setFormData({
+    ...formData,
 
+    [name]:
+      name === "email"
+        ? value.toLowerCase()
+        : value,
+  });
+};
   const handleSubmit = async (
     e
   ) => {
